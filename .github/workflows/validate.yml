@@ -16,9 +16,10 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: Scan skills with bastyn-scan
-        uses: bastyn-labs/bastyn-scan@2af7927daf872c617d1cb263e0d8221a24cae9fa # v0.5.0
+        uses: bastyn-labs/bastyn-scan@079c7ffdda93e558f4e6d9b4d46605099ce9eb76 # v0.6.0
         with:
           fail-on: high
+          show-coverage: true
           sarif-file: bastyn.sarif
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: always()
