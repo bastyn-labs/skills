@@ -38,6 +38,7 @@ A skill is a set of instructions that an AI agent executes. Before you use one:
 - Tags matching `v*` are protected.
 - Every pull request must pass `bastyn-scan` (https://github.com/bastyn-labs/bastyn-scan)
   and a skill-format check.
+- A rule-guard check fails the PR if a skill loses a required safety phrase or gains a forbidden one (lists in `checks/`).
 - The format check uses `skills-ref`, which its authors label demonstration-only. It is
   installed from a pinned commit.
 

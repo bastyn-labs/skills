@@ -39,3 +39,5 @@ jobs:
         run: pip install "git+https://github.com/agentskills/agentskills@69ef37e9424c0a7ea9dd2293b559e43ec8176379#subdirectory=skills-ref"
       - name: Validate every skill
         run: bash scripts/validate-skills.sh
+      - name: Check skill safety rules
+        run: bash scripts/check-skill-rules.sh

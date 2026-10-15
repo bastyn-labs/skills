@@ -1,0 +1,9 @@
+Monitoring Reader
+--scopes
+Never to a subscription or resource group
+never write it to a file
+--query "{tenant_id:tenant, client_id:appId, client_secret:password}"
+az ad sp create-for-rbac
+contains `/providers/microsoft.insights/components/`
+never use a subscription or resource group id as the scope
+Bastyn retries by itself for about a minute
