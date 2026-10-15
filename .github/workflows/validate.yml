@@ -1,0 +1,41 @@
+name: validate
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  bastyn-scan:
+    name: bastyn-scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Scan skills with bastyn-scan
+        uses: bastyn-labs/bastyn-scan@2af7927daf872c617d1cb263e0d8221a24cae9fa # v0.5.0
+        with:
+          fail-on: high
+          sarif-file: bastyn.sarif
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        if: always()
+        with:
+          name: bastyn-sarif
+          path: bastyn.sarif
+          if-no-files-found: ignore
+
+  spec-validate:
+    name: spec-validate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+      - name: Install skills-ref (pinned commit; its authors label it demonstration-only)
+        run: pip install "git+https://github.com/agentskills/agentskills@69ef37e9424c0a7ea9dd2293b559e43ec8176379#subdirectory=skills-ref"
+      - name: Validate every skill
+        run: bash scripts/validate-skills.sh
